@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Ensure the correct number of arguments
+if [ "$#" -ne 2 ]; then
+    echo "Usage: push_to_switch <compiled_p4.json> <switch_name>"
+    exit 1
+fi
+
+# Extract the container ID of the Mininet switch
+container_id=$(sudo docker ps | grep -w "mn.$2" | awk '{print $1}')
+
+# Check if the container was found
+if [ -z "$container_id" ]; then
+    echo "Error: Could not find a running container for switch $2"
+    exit 1
+fi
+
+# Copy the compiled P4 JSON file to the switch's behavioral model directory
+sudo docker cp "$1" "$container_id":/behavioral-model/"$1"
+
+echo "Successfully pushed $1 to switch $2"
+
