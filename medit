@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+
+containers=$(sudo docker ps -aq)
+if [ -n "$containers" ]; then
+	sudo docker rm -f $containers
+else
+	echo "No containers to remove"
+fi
+
+sudo systemctl start docker
+sudo systemctl enable docker
+
+cd ~/containernet/mininet/examples
+
+export PYTHONPATH=$PYTHONPATH:/home/maxwell/containernet:/home/maxwell/containernet/mininet:/home/maxwell/mininet
+
+sudo env PYTHONPATH=$PYTHONPATH python3 /home/maxwell/containernet/examples/miniedit.py
