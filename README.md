@@ -1,0 +1,1 @@
+This documentation is for running lab modules in a predeveloped OVA or setting up the environment natively in Ubuntu 22.04LTS as this is the only OS that we found worked with all the necessary dependencies. Please follow the specific instructions for each necessary software download in the /docs directory.
